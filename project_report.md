@@ -13,7 +13,7 @@ The repot for the advanced lane finding project is divided into six different se
   - [3.2 Color Threshold](#32-color-threshold)
   - [3.3 Combing Gradient and Color Thresholds](#33-combing-gradient-and-color-thresholds)
   - [3.4 Note on varying illumination/shadows](#34-note-on-varying-illuminationshadows)
-- [Section 4: The Line Class](#section-4-the line class)
+- [Section 4: The Line Class](#section-4-the-line-class)
   - [4.1 Definition](#41-definition)
   - [4.2 Initialization](#42-initialization)
   - [4.3 Lane identification](#43-lane-identification)
