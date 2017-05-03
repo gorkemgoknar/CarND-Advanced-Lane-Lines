@@ -2,7 +2,27 @@
 
 The repot for the advanced lane finding project is divided into six different sections. An overview of the contents is provided below. In the first section, ***camera calibration*** procedure is described. In the second section, the methodology and steps for ***performing distortion*** correction and identifying ROI for ***perspective transformation*** are discussed. In addition, the approach to determine the associated calibration for pixel coordinates to physical coordinates is presented. In the third section, the ***gradient/color threshold*** process to determine the pixels/centroids corresponding to the lane lines (yellow or white) is discussed. In the fourth section, the definition of the lane marking ***Line class*** is presented. Also, the method used to identify the lane marking centroids is presented. In the fifth section, the strategy adopted for ***curve fitting*** the pixels/centroids for lane lines is presented. In this section, the sanity checks used to determine a valid fit result for lane line is also discussed. Finally, in the last section, an overview of the ***visualization*** strategy used to present an overview of the whole process is described. The implementation of the code is presented in two files: *find_lines_v3.py* and *find_lines_v4.py*. The first implementation works well with *project_video.mp4* and *challenge_video.mp4*. The second implementation has some improvements (e.g., _CLAHE_) that worked well with all three video files. In the final sections, the video pipeline processing and ***results*** are discussed. Further enhancements to the implementation to improve robustness are also discussed.
 
-[TOC]
+- [Section 1: Camera Calibration](#section-1-camera-calibration)
+  - [1.1 Initialize and load calibration data](#11-initialize-and-load-calibration-data)
+  - [1.2 Perform calibration and save matrices](#12-perform-calibration-and-save-matrices)
+- [Section 2: Distortion correction and perspective transformation](#section-2-distortion-correction-and-perspective-transformation)
+  - [2.1 Identification of Region-of-Interest](#21-identification-of-region-of-interest)
+  - [2.2 Perspective Transformation](#22-perspective-transformation)
+- [Section 3: Color and Gradient Thresholds](#section-3-color-and-gradient-thresholds)
+  - [3.1 Gradient Threshold](#31-gradient-threshold)
+  - [3.2 Color Threshold](#32-color-threshold)
+  - [3.3 Combing Gradient and Color Thresholds](#33-combing-gradient-and-color-thresholds)
+  - [3.4 Note on varying illumination/shadows](#34-note-on-varying-illuminationshadows)
+- [Section 4: The Line Class](#section-4-the line class)
+  - [4.1 Definition](#41-definition)
+  - [4.2 Initialization](#42-initialization)
+  - [4.3 Lane identification](#43-lane-identification)
+- [Section 5: Curve fitting strategy](#section-5-curve-fitting-strategy)
+  - [5.1 Calibration for pixels to physical distance conversion](#51-calibration-for-pixels-to-physical-distance-conversion)
+  - [5.2 Curve fitting strategy](#52-curve-fitting-strategy)
+- [Section 6: Visualization](#section-6-visualization)
+- [Section 7: Results](#section-7-results)
+- [Section 8: Further Improvements](#section-8-further-improvements)
 
 ---
 
