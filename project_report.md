@@ -63,7 +63,7 @@ dist = dist_pickle['dist']
 
 ---
 
-#Section 2: Distortion correction and perspective transformation
+# Section 2: Distortion correction and perspective transformation
 
 ## 2.1 Identification of Region-of-Interest
 
@@ -318,13 +318,13 @@ The project video output displays the intermediate output at each section descri
 
 
 
-![visualization_example](C:\Users\Sampath\Downloads\GitHub\CarND\CarND-Advanced-Lane-Lines\writeup_media\visualization_example.JPG)
+![visualization_example](./writeup_media/visualization_example.JPG)
 
 The above plot was made using two helper function: `plot_warped_lane_regions` and `plot_lanes_on_undist`. These function are based on the code provided in the course notes, so will not be described in detail. The additional features is the feedback of dropped frame using `cv2.circle` and `cv2.text` on the top right corner of the original video frame. The output image from each helper function is assembled into subplot axes in the above figure using `gridspec.GridSpec` method.
 
 ------
 
-#Section 7: Results
+# Section 7: Results
 
 The video output from the project video files is presented below. All three input videos were successfully processed using the current algorithm/code implementation. The following table summarizes the robustness of the algorithm to each project video. Links to complete output from project video are embedded in the filename column. An example snip from the output is shown below.
 
@@ -358,7 +358,7 @@ An example output form each video is demonstrated below.
 
 ---
 
-#Section 8: Further improvements
+# Section 8: Further improvements
 
 Some of the key problems / issues / learnings from the implementation of this project are listed below:
 
