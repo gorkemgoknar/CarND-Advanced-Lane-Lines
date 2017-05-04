@@ -783,9 +783,13 @@ def plot_lanes_on_undist(undist, warped, Minv, lline, rline):
     # Combine the result with the original image
     output = cv2.addWeighted(undist, 1, undist_lane, 0.5, 0)
     
+    xm_per_pix = 3.66/770
+    center_offset = (0.5*(lx[-1]+rx[-1])-640)*xm_per_pix
     cv2.putText(output,'LEFT-ROC = {0:.2f} m'.format(lcrv), (50,70),
         cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
     cv2.putText(output,'RIGHT-ROC = {0:.2f} m'.format(rcrv), (50,120),
+        cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
+    cv2.putText(output,'CENTER-OFFSET = {0:.2f} m'.format(center_offset), (50,170),
         cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
     
     if df_flag:
@@ -1020,4 +1024,4 @@ if make_gif:
     vfile = mpy.VideoFileClip('project_video.mp4')
     vclip = vfile.subclip(t_start=15.04, t_end=18.24)
     #vclip = vclip.resize(0.5).crop(x1=50,x2=50,y1=50,y2=50)
-    vclip.write_gif('roject_video.gif', fps=vfile.fps, program='ffmpeg', opt='nq')
+    vclip.write_gif('project_video.gif', fps=vfile.fps, program='ffmpeg', opt='nq')

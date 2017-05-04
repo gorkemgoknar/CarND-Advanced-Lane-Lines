@@ -138,8 +138,8 @@ def mag_thresh(img):
     # Set kernel size for transform - must be an odd number
     sobel_kernel = 5
     # Set the low/high cut-off gradient values
-    #mag_thresh = (5, 110) # setting for project and challenge
-    mag_thresh = (50, 110) # setting for harder_challenge
+    mag_thresh = (5, 110) # setting for project and challenge
+    #mag_thresh = (50, 110) # setting for harder_challenge
     
     # Following steps were applied to the input image using above settings.
     # Notes:
@@ -206,11 +206,11 @@ def color_thresh(img):
     #V = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)[:,:,2]
     yline = np.zeros_like(R) ; wline = np.zeros_like(R)
     # Identify only the yellow lines by taking advanced of RGB distribution
-    #yline[(R > 150) & (G > 140) & (B < 130)] = 1 # setting for project & challenge
-    yline[(R > 240) & (G > 230) & (B < 180)] = 1 # setting for harder_challenge
+    yline[(R > 150) & (G > 140) & (B < 130)] = 1 # setting for project & challenge
+    #yline[(R > 240) & (G > 230) & (B < 180)] = 1 # setting for harder_challenge
     # Identify only the white lines using highest values in RGB channels
-    #wline[(R > 170) & (G > 170) & (B > 170)] = 1 # setting for project & challenge
-    wline[(R > 240) & (G > 230) & (B > 220)] = 1 # setting for harder_challenge
+    wline[(R > 170) & (G > 170) & (B > 170)] = 1 # setting for project & challenge
+    #wline[(R > 240) & (G > 230) & (B > 220)] = 1 # setting for harder_challenge
     # Combine (ORed) both image to include all (yellow/white) lane markings
     binary_output = (yline|wline)
     
@@ -500,8 +500,8 @@ def polyfit_and_compute_radcurv(sws_flag, lcpts, rcpts, lline, rline, margin):
         #lcrv_tdiff = 0
         #if lline.radius_of_curvature < 10000 and lcrv < 10000:
         #    lcrv_tdiff = abs(np.log10(lline.radius_of_curvature)-np.log10(lcrv))
-        chk1_left = (lx_tdiff > 5.0*margin) # or (lcrv_tdiff > 0.5)
-        # setting for project and challenge was 0.5*margin
+        chk1_left = (lx_tdiff > 0.5*margin) # or (lcrv_tdiff > 0.5)
+        # setting for project/challenge was 0.5*margin, harder_challenge was 5.0*margin
         if debug_log:
             with open("log.txt", "a") as myfile:
                 myfile.write('\n --- chk1_left ---')
@@ -517,8 +517,8 @@ def polyfit_and_compute_radcurv(sws_flag, lcpts, rcpts, lline, rline, margin):
         #rcrv_tdiff = 0
         #if rline.radius_of_curvature < 10000 and rcrv < 10000:
         #    rcrv_tdiff = abs(np.log10(rline.radius_of_curvature)-np.log10(rcrv))
-        chk1_right = (rx_tdiff > 5.0*margin) # or (rcrv_tdiff > 0.5)
-        # setting for project and challenge was 0.5*margin
+        chk1_right = (rx_tdiff > 0.5*margin) # or (rcrv_tdiff > 0.5)
+        # setting for project/challenge was 0.5*margin, harder_challenge was 5.0*margin
         if debug_log:
             with open("log.txt", "a") as myfile:
                 myfile.write('\n --- chk1_right ---')
@@ -709,9 +709,13 @@ def plot_lanes_on_undist(undist, warped, Minv, lline, rline):
     # Combine the result with the original image
     output = cv2.addWeighted(undist, 1, undist_lane, 0.5, 0)
     
+    xm_per_pix = 3.66/770
+    center_offset = (0.5*(lx[-1]+rx[-1])-640)*xm_per_pix
     cv2.putText(output,'LEFT-ROC = {0:.2f} m'.format(lcrv), (50,70),
         cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
     cv2.putText(output,'RIGHT-ROC = {0:.2f} m'.format(rcrv), (50,120),
+        cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
+    cv2.putText(output,'CENTER-OFFSET = {0:.2f} m'.format(center_offset), (50,170),
         cv2.FONT_HERSHEY_DUPLEX, 1.0, (255,255,255), 2, cv2.LINE_AA, False)
     
     if df_flag:
@@ -762,8 +766,8 @@ def make_frame(t):
     
     # Sliding window attributes
     window_width = 50 ; window_height = 80 # 9 layers for height 720
-    margin = 60 # How much to slide left and right for searching
-    # setting for project and challenge was margin = 120
+    margin = 120 # How much to slide left and right for searching
+    # setting for project and challenge was margin = 120, harder was 60
     
     # Steps for the algorightms are as below (shown using numerals 1-6)
     
@@ -892,7 +896,7 @@ right_line = Line()
 # Glare & dash washout: (25.52, 37.08)
 # Sharp U-turn: (37.08, 45.88)
 
-file_basename = 'harder_challenge'
+file_basename = 'challenge'
 
 df_flag = False
 debug_log = True
@@ -907,7 +911,7 @@ src_clip = src_vid.subclip(t_start=start_time, t_end=end_time)
 num_drop_frames = 0
 all_drop_frames = 0
 # Budget 500ms sec worth dropped frames for contingencies (glare, shake, etc)
-max_drop_frames = int(src_vid.fps*0.08)
+max_drop_frames = int(src_vid.fps*0.5)
 # settings for project and harder are 0.5 of fps
 
 dst_clip = mpy.VideoClip(make_frame, duration=src_clip.duration)
