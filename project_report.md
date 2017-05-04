@@ -340,7 +340,7 @@ The project video output displays the intermediate output at each section descri
 
 ![visualization_example](./writeup_media/visualization_example.JPG)
 
-The above plot was made using two helper function: `plot_warped_lane_regions` and `plot_lanes_on_undist`. These function are based on the code provided in the course notes, so will not be described in detail. The additional features is the feedback of dropped frame using `cv2.circle` and `cv2.text` on the top right corner of the original video frame. The output image from each helper function is assembled into subplot axes in the above figure using `gridspec.GridSpec` method.
+The above plot was made using two helper function: `plot_warped_lane_regions` and `plot_lanes_on_undist`. These function are based on the code provided in the course notes, so will not be described in detail. The additional features is the feedback of dropped frame using `cv2.circle` and `cv2.text` on the top right corner of the original video frame. The output image from each helper function is assembled into subplot axes in the above figure using `gridspec.GridSpec` method. In the visualization windows, additional information is listed on the top-left of the frame. This include curvature of left lane marking, curvature of right lane marking and the offset of vehicle from the center of lane. The curvatures are report in meters. The center-offset is defined as the deviation of the vehicle from center of lane, measure positively toward the center of the road. The computed value (`center_offset = (0.5*(lx[-1]+rx[-1])-640)*xm_per_pix`) is displayed on the frame in meters.
 
 ------
 
@@ -360,21 +360,21 @@ An example output form each video is demonstrated below.
 
 
 
-| Example output clip #1 for *project_video.mp4* | Example output clip #2 for *project_video.mp4* |
-| ---------------------------------------- | ---------------------------------------- |
-| ![project_output_1](./writeup_media/project_output_1.gif) | ![project_output_2](./writeup_media/project_output_2.gif) |
+| Example output clip #1 for *project_video.mp4* |
+| ---------------------------------------- |
+| ![project_output](./writeup_media/project_output.gif) |
 
 
 
 | Example output clip #1 for *challenge_video.mp4* |
 | ---------------------------------------- |
-| ![challenge_output_1](./writeup_media/challenge_output_1.gif) |
+| ![challenge_output_1](./writeup_media/challenge_output.gif) |
 
 
 
 | Example output clip #1 for *harder_challenge_video.mp4 |
 | ---------------------------------------- |
-| ![harder_challenge_output_1](./writeup_media/harder_challenge_output_1.gif) |
+| ![harder_challenge_output_1](./writeup_media/harder_challenge_output.gif) |
 
 ---
 
